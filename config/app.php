@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => 'Yalla_Mana',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,13 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+
+        /*
+         * passport authentication for login
+         */
+        Laravel\Passport\PassportServiceProvider::class,
+
 
     ],
 

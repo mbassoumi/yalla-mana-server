@@ -14,6 +14,7 @@ return [
     */
 
     'defaults' => [
+        'api' => 'api',
         'guard' => 'web',
         'passwords' => 'users',
     ],
@@ -42,7 +43,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
         ],
     ],
@@ -68,6 +69,8 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+            'table' => 'users',
+
         ],
 
         // 'users' => [
@@ -96,6 +99,40 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
+        ],
+    ],
+
+    /*
+   |--------------------------------------------------------------------------
+   | Route bindings
+   |--------------------------------------------------------------------------
+   |
+   | Here you can list the relation with the route to the guard
+   |
+    */
+
+    'routes' => [
+        'user' => [
+            'web' => [
+                'guard' => 'web',
+                'broker' => 'user',
+                'home' => 'home',
+            ],
+            'api' => [
+                'broker' => 'user',
+                'guard' => 'api',
+            ],
+        ],
+        'admin' => [
+            'web' => [
+                'guard' => 'admin.web',
+                'broker' => 'admin',
+                'home' => 'admin',
+            ],
+            'api' => [
+                'guard' => 'api',
+                'broker' => 'admin',
+            ],
         ],
     ],
 
