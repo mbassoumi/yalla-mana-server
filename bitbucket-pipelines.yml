@@ -13,7 +13,7 @@ pipelines:
         script:
           - apt-get update 
           - apt-get -qq install git-ftp 
-          - git ftp init --user defaultyallamana --passwd xFvuTV_mK7 ftp://yallamana.studentprojects.ritaj.ps/public_html/
+          - git ftp init --user defaultyallamana --passwd xFvuTV_mK7 ftp://yallamana.studentprojects.ritaj.ps/
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
           - composer install
           - vendor/bin/phpunit
