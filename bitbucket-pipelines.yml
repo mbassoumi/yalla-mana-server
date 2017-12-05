@@ -12,6 +12,5 @@ pipelines:
           - composer
         script:
           - apt-get update && apt-get install -y unzip
-          - composer install
           - git ftp init --user defaultyallamana --passwd xFvuTV_mK7 ftp://yallamana.studentprojects.ritaj.ps/web/yallamana/
           - vendor/bin/phpunit
