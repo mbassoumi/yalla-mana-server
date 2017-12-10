@@ -40,7 +40,7 @@
     </div>
     <div class="navbar navbar-dark bg-dark">
         <div class="container d-flex justify-content-between">
-            <h1 class="navbar-brand">graduation project</h1>
+            <h1 class="navbar-brand">graduation project.</h1>
         </div>
     </div>
 </header>
