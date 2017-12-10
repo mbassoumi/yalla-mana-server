@@ -1,95 +1,107 @@
+
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
 
-        <title>Laravel</title>
+    <title>Yalla mana</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+    <!-- Custom styles for this template -->
+    <link href="/css/album.css" rel="stylesheet">
+</head>
 
-            .full-height {
-                height: 100vh;
-            }
+<body>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
+<header>
+    <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 py-4">
+                    <h4 class="text-white">About</h4>
+                    <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="col-sm-4 py-4">
+                    <h4 class="text-white">Contact</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                        <li><a href="#" class="text-white">Like on Facebook</a></li>
+                        <li><a href="#" class="text-white">Email me</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+    <div class="navbar navbar-dark bg-dark">
+        <div class="container d-flex justify-content-between">
+            <h1 class="navbar-brand">graduation project</h1>
+        </div>
+    </div>
+</header>
+
+<main role="main">
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Yalla Mana</h1>
+            <p class="lead text-muted">
+                Yalla Mana is a real-time system aims to reduce transportation problems.
+                This will be done by using car sharing technique. If a group of people have a common
+                destination, it is enough that one of them has a private car and share it with others while
+                others share their money with him. By this, they guarantee to arrive their destination as
+                fast as possible with the least price. It’s important to know, that this approach will never
+                neglect public transportation turn but it provides usage of both public and private vehicles,
+                by giving public transportation the highest priority in accepting trips requested by users. To
+                achieve this purpose, we will design Yalla Mana application which will be the first of its
+                kind in Palestine and suitable as much as possible with Palestinian situations.</p>
+            <p>
+                <a href="#"><img src="https://storage.googleapis.com/yalla-mana.appspot.com/apps-google-play.jpg" height="70" width="200" alt="Card image cap"> </a>
+            </p>
+        </div>
+    </section>
+
+    <div class="album text-muted">
+        <div class="container">
+
+            <div class="row">
+                <div class="card">
+                    <img src="https://storage.googleapis.com/yalla-mana.appspot.com/mais.jpg" height="500" width="400" alt="Card image cap">
+                    <h1 class="card-text">Mais Abu Helou</h1>
+                    <p class="card-text">Android Developer</p>
+                </div>
+                <div class="card">
+                    <img src="https://storage.googleapis.com/yalla-mana.appspot.com/mustafa.jpg" height="500" width="400" alt="Card image cap">
+                    <h1 class="card-text">Mustafa Taha</h1>
+                    <p class="card-text">Server Administrator</p>                </div>
+                <div class="card">
+                    <img src="https://storage.googleapis.com/yalla-mana.appspot.com/IMG_20171008_174457.jpg" height="500" width="400" alt="Card image cap">
+                    <h1 class="card-text">Majd Bassoumi</h1>
+                    <p class="card-text">Back-end Developer</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+{{--<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+        <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p>
+    </div>
+</footer>--}}
+
+
+</body>
 </html>
