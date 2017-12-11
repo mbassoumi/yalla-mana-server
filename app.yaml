@@ -22,7 +22,7 @@ env_variables:
   DB_PASSWORD: majdbb18
   DB_SOCKET: "/cloudsql/yalla-mana:us-central1:yallamana"
 
-  beta_settings:
-      # for Cloud SQL, set this value to the Cloud SQL connection name,
-      # e.g. "project:region:cloudsql-instance"
-      cloud_sql_instances: "yalla-mana:us-central1:yallamana"
+#  beta_settings:
+#      # for Cloud SQL, set this value to the Cloud SQL connection name,
+#      # e.g. "project:region:cloudsql-instance"
+#      cloud_sql_instances: "yalla-mana:us-central1:yallamana"
