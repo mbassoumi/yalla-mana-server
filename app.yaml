@@ -17,8 +17,9 @@ env_variables:
   CACHE_DRIVER: database
   SESSION_DRIVER: database
   ## Set these environment variables according to your CloudSQL configuration.
-  DB_HOST: 104.154.184.255
+  DB_HOST: localhost
   DB_DATABASE: yalla_mana
+  DB_PORT: 3306
   DB_USERNAME: root
   DB_PASSWORD: majdbb18
   DB_SOCKET: "/cloudsql/yalla-mana:us-central1:yallamana"
