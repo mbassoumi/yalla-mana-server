@@ -183,6 +183,11 @@ return [
          */
         Laravel\Passport\PassportServiceProvider::class,
 
+        /*
+         * helpers
+         */
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
 
     ],
 
