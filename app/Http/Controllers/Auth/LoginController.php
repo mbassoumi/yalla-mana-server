@@ -43,9 +43,11 @@ class LoginController extends Controller
 //        $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function apiLogin()
     {
-//        logger(Auth::attempt(['phone' => request('phone'), 'password' => request('code')]));
         $phone = \request()->get('phone');
         $user = User::where('phone',request('phone'))->first();
         $new_user = false;
@@ -61,7 +63,7 @@ class LoginController extends Controller
 
     }
 
-    public function apiGetCode()
+   /* public function apiGetCode()
     {
         $phone = \request()->get('phone');
         $digits = 6;
@@ -79,6 +81,6 @@ class LoginController extends Controller
             $new_user = true;
         }
         return response()->json(apiResponseMessage(trans('Your login Code'), ['code' => $code, 'new_user' => $new_user]), 200);
-    }
+    }*/
 
 }

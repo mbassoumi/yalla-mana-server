@@ -2,21 +2,28 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
+   /* protected $fillable = [
         'name', 'phone', 'password',
+    ];*/
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     /**
@@ -27,4 +34,10 @@ class User extends Authenticatable
     protected $hidden = [
 
     ];
+
+    public function trips()
+    {
+        return $this->belongsToMany('App\\Trip');
+    }
+
 }

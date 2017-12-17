@@ -28,3 +28,6 @@ Route::post('get-code', 'Auth\LoginController@apiGetCode');
         return $request->user('api');
     });
 });
+
+
+Route::resource('trip','TripController');

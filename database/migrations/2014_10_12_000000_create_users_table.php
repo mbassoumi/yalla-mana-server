@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->enum('type', [ 'admin', 'driver', 'rider'])->default('rider');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

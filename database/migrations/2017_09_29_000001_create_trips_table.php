@@ -15,10 +15,10 @@ class CreateTripsTable extends Migration
     {
         Schema::create('trips', function (Blueprint $table) {
             $table->increments('id');
-            $table->json('name');
+            $table->string('name');
             $table->json('start_point');
             $table->json('end_point');
-            $table->boolean('date');
+            $table->date('date');
             $table->time('start_time');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->unsignedInteger('created_by')->index();
