@@ -46,15 +46,18 @@ class LoginController extends Controller
     public function apiLogin()
     {
 //        logger(Auth::attempt(['phone' => request('phone'), 'password' => request('code')]));
-        $user = User::where('phone',request('phone'))->where('password',request('code'))->first();
-        if($user) {
-            $user = Auth::loginUsingId($user->id);
-            $token = $user->createToken(config('app.name'))->accessToken;
-            return response()->json(apiResponseMessage(trans('Login Successfully'), ['user' => $user, 'token' => $token]), 200);
-        } else {
-            return response()->json(apiResponseMessage(trans('Unauthorised'), []), 422);
-
+        $phone = \request()->get('phone');
+        $user = User::where('phone',request('phone'))->first();
+        $new_user = false;
+        if(!$user) {
+            $user = new User;
+            $user->phone = $phone;
+            $user->save();
+            $new_user = true;
         }
+        $auth_user = Auth::loginUsingId($user->id);
+        $token = $auth_user->createToken(config('app.name'))->accessToken;
+        return response()->json(apiResponseMessage(trans('Login Successfully'), ['user' => $auth_user, 'new_user' => $new_user, 'token' => $token]), 200);
 
     }
 
