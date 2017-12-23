@@ -105,7 +105,7 @@ class TripController extends Controller
 
         $trip =  Trip::find($trip_id);
         if (!$trip){
-            return response()->json(apiResponseMessage(trans('failed to create trip'), ['error' => 'not valid trip id']), 400);
+            return response()->json(apiResponseMessage(trans('failed to update trip'), ['error' => 'not valid trip id']), 400);
         }
         $attributes = $request->all();
 
@@ -124,7 +124,7 @@ class TripController extends Controller
             $trip = $trip->update($attributes);
             return response()->json(apiResponseMessage(trans('trip updated successfully'), []), 200);
         } catch (\Exception $e) {
-            return response()->json(apiResponseMessage(trans('failed to create trip'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to update trip'), ['error' => $e]), 400);
         }
     }
 
