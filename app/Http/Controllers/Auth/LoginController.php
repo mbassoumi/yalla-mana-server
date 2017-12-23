@@ -49,14 +49,13 @@ class LoginController extends Controller
     public function apiLogin()
     {
         $phone = \request()->get('phone');
-        $user = User::where('phone',request('phone'))->first();
         $new_user = false;
+        $user = User::where('phone',request('phone'))->first();
         if(!$user) {
-            $user = new User;
-            $user->phone = $phone;
-            $user->save();
             $new_user = true;
+            return response()->json(apiResponseMessage(trans('unregistered user'), ['new_user' => $new_user]), 200);
         }
+        \DB::table('oauth_access_tokens')->where('user_id','=', $user->id)->update(['revoked' => 1]);
         $auth_user = Auth::loginUsingId($user->id);
         $token = $auth_user->createToken(config('app.name'))->accessToken;
         return response()->json(apiResponseMessage(trans('Login Successfully'), ['user' => $auth_user, 'new_user' => $new_user, 'token' => $token]), 200);

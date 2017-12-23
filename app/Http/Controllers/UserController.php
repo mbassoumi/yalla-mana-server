@@ -35,7 +35,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->all();
+
+
+        //TODO: validate saving new user
+        $this->validate(request(), [
+            'phone' => 'required',
+        ]);
+        try {
+            $user = User::create($attributes);
+            return response()->json(apiResponseMessage(trans('user registered successfully'), ['user' => $user]), 200);
+        } catch (\Exception $e) {
+            return response()->json(apiResponseMessage(trans('failed to register user'), ['error' => $e]), 400);
+        }
     }
 
     /**
@@ -44,9 +56,15 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($user_id)
     {
-        //
+        $user =  User::find($user_id);
+        if (!$user){
+            return response()->json(apiResponseMessage(trans('failed to retrieve user information'), ['error' => 'not valid trip id']), 400);
+        }else{
+            return response()->json(apiResponseMessage(trans('trip retrieved successfully'), ['user' => $user]), 200);
+
+        }
     }
 
     /**
@@ -67,9 +85,25 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $user_id)
     {
-        //
+        $user =  User::find($user_id);
+        if (!$user){
+            return response()->json(apiResponseMessage(trans('failed to update user information'), ['error' => 'not valid user id']), 400);
+        }
+        $attributes = $request->all();
+
+
+        //TODO: validate  updating trip
+        $this->validate(request(), [
+//            'name' => 'required',
+        ]);
+        try {
+            $user = $user->update($attributes);
+            return response()->json(apiResponseMessage(trans('user information updated successfully'), ['user' => $user]), 200);
+        } catch (\Exception $e) {
+            return response()->json(apiResponseMessage(trans('failed to update user information'), ['error' => $e]), 400);
+        }
     }
 
     /**
@@ -78,8 +112,15 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($user_id)
     {
-        //
+        $user =  User::find($user_id);
+        if (!$user){
+            return response()->json(apiResponseMessage(trans('failed to delete a user'), ['error' => 'not valid user id']), 400);
+        }else{
+            $user->delete();
+            return response()->json(apiResponseMessage(trans('user deleted successfully'), []), 200);
+
+        }
     }
 }
