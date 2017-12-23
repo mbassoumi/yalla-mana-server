@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: majd2
+ * Date: 2017-12-23
+ * Time: 6:30 PM
+ */
 
 namespace App;
 
@@ -6,9 +12,8 @@ namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Yajra\Auditable\AuditableTrait;
 
-class Trip extends Model
+class Car extends Model
 {
-
     use SoftDeletes, AuditableTrait;
 
     protected $casts = [
@@ -18,33 +23,30 @@ class Trip extends Model
     ];
 
     protected $dates = [
-        'date',
         'created_at',
         'updated_at',
         'deleted_at'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function riders()
+    public function trips()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(Trip::class);
     }
 
-    public function car()
-    {
-        return $this->hasOne(Car::class);
-    }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function driver()
-    {
-        return $this->hasOne(User::class, 'driver_id');
-    }
+
+
 
 
 

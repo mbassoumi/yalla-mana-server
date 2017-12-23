@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('name')->default('');
             $table->string('phone')->unique();
-            $table->string('password', 100)->nullable();
             $table->string('api_token', 60)->nullable()->unique();
             $table->string('photo', 500)->nullable();
             $table->enum('status', [ 'active', 'suspended'])->default('active');

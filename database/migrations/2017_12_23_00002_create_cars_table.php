@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTripsTable extends Migration
+class CreateCarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,32 +13,25 @@ class CreateTripsTable extends Migration
      */
     public function up()
     {
-        Schema::create('trips', function (Blueprint $table) {
+        Schema::create('cars', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->json('start_point');
-            $table->json('end_point');
-            $table->date('date');
-            $table->time('start_time');
+            $table->integer('user_id');
+            $table->string('photo');
+            $table->string('model_type');
+            $table->unsignedInteger('model_year')->nullable();
+            $table->string('seats_number');
             $table->json('attributes')->nullable();
-            $table->unsignedInteger('car_id')->nullable();
             $table->unsignedInteger('created_by')->index();
             $table->unsignedInteger('updated_by')->index();
-            $table->unsignedInteger('driver_id')->nullable();
-            $table->double('price')->nullable();
-            $table->enum('status', ['offered', 'requested'])->default('offered');
             $table->nullableTimestamps();
             $table->softDeletes();
 
-
-
-            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('driver_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
 
         });
-
     }
 
     /**
@@ -48,6 +41,6 @@ class CreateTripsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trips');
+        Schema::dropIfExists('comments');
     }
 }

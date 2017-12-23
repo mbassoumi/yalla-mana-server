@@ -10,11 +10,12 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Yajra\Auditable\AuditableTrait;
 
 class Post extends Model
 {
 
-    use SoftDeletes;
+    use SoftDeletes, AuditableTrait;
 
     public function comments()
     {
