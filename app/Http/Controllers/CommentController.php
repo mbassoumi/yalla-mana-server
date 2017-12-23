@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+
+    /**
+     * CommentController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,12 +40,24 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->all();
+        $post_id = $attributes['post_id'];
+        $this->validate(request(),[
+            'body' => 'required|min:2',
+        ]);
+        try{
+            $comment = Comment::create($attributes);
+            $post = Post::find($post_id);
+            $post->addComment($comment->body);
+            return response()->json(apiResponseMessage(trans('comment created successfully'), []), 200);
+        }catch (\Exception $e){
+            return response()->json(apiResponseMessage(trans('failed to create a comment'), ['error' => $e]), 400);
+        }
     }
 
     /**
@@ -44,9 +66,14 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show($comment_id)
     {
-        //
+        $comment =  Comment::find($comment_id);
+        if (!$comment){
+            return response()->json(apiResponseMessage(trans('failed to retrieve a comment'), ['error' => 'not valid comment id']), 400);
+        }else{
+            return response()->json(apiResponseMessage(trans('comment retrieved successfully'), ['comment' => $comment]), 200);
+        }
     }
 
     /**
@@ -63,23 +90,41 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $comment_id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, $comment_id)
     {
-        //
+        $comment=  Comment::find($comment_id);
+        if (!$comment){
+            return response()->json(apiResponseMessage(trans('failed to update a comment'), ['error' => 'not valid comment id']), 400);
+        }
+        $attributes = $request->all();
+
+        try {
+            $comment = $comment->update($attributes);
+            return response()->json(apiResponseMessage(trans('comment updated successfully'), []), 200);
+        } catch (\Exception $e) {
+            return response()->json(apiResponseMessage(trans('failed to update comment'), ['error' => $e]), 400);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @param $comment_id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Comment $comment)
+    public function destroy($comment_id)
     {
-        //
+        $comment =  Comment::find($comment_id);
+        if (!$comment){
+            return response()->json(apiResponseMessage(trans('failed to delete a comment'), ['error' => 'not valid comment id']), 400);
+        }else{
+            $comment->delete();
+            return response()->json(apiResponseMessage(trans('comment deleted successfully'), []), 200);
+
+        }
     }
 }
