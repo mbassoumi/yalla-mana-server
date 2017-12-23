@@ -13,7 +13,7 @@ class CreateTripsTable extends Migration
      */
     public function up()
     {
-        Schema::create('trips', function (Blueprint $table) {
+        \Schema::create('trips', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->json('start_point');
@@ -32,10 +32,10 @@ class CreateTripsTable extends Migration
 
 
 
-            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('driver_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('car_id')->references('id')->on('cars');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
+            $table->foreign('driver_id')->references('id')->on('users');
 
         });
 

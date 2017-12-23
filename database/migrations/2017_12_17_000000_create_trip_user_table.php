@@ -12,12 +12,12 @@ class CreateTripUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('trip_user', function ($table) {
+        \Schema::create('trip_user', function ($table) {
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('trip_id');
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('trip_id')->references('id')->on('trips')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('trip_id')->references('id')->on('trips');
         });
     }
 

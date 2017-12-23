@@ -13,7 +13,7 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        \Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->text('body');
             $table->unsignedInteger('created_by')->index();
@@ -21,8 +21,8 @@ class CreatePostsTable extends Migration
             $table->nullableTimestamps();
             $table->softDeletes();
 
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
 
 
         });
