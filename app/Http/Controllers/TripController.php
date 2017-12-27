@@ -24,7 +24,8 @@ class TripController extends Controller
      */
     public function index()
     {
-        //
+        $trips = Trip::all();
+        return response()->json(apiResponseMessage(trans('trips list'), ['trips' => $trips]), 200);
     }
 
     /**
@@ -115,12 +116,12 @@ class TripController extends Controller
 //            'name' => 'required',
         ]);
         try {
-            if (isset($attributes['start_point'])) {
+            /*if (isset($attributes['start_point'])) {
                 $attributes['start_point'] = json_encode($attributes['start_point']);
             }
             if (isset($attributes['end_point'])) {
                 $attributes['end_point'] = json_encode($attributes['end_point']);
-            }
+            }*/
             $trip = $trip->update($attributes);
             return response()->json(apiResponseMessage(trans('trip updated successfully'), []), 200);
         } catch (\Exception $e) {

@@ -24,7 +24,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return response()->json(apiResponseMessage(trans('users list'), ['users' => $users]), 200);
     }
 
     /**
@@ -47,13 +48,20 @@ class UserController extends Controller
     {
         $attributes = $request->all();
 
-
         //TODO: validate saving new user
         $this->validate(request(), [
             'phone' => 'required',
         ]);
         try {
             $user = User::create($attributes);
+            if ($user->type == 'driver'){
+                $user->status = 'suspended';
+                $user->save();
+            }else
+            {
+                $user->status = 'active';
+                $user->save();
+            }
             return response()->json(apiResponseMessage(trans('user registered successfully'), ['user' => $user]), 200);
         } catch (\Exception $e) {
             return response()->json(apiResponseMessage(trans('failed to register user'), ['error' => $e]), 400);
@@ -109,7 +117,21 @@ class UserController extends Controller
 //            'name' => 'required',
         ]);
         try {
-            $user = $user->update($attributes);
+            if (isset($attributes['phone'])){
+                throw new \Exception(trans('cant update phone number'));
+            }
+            if(isset($attributes['type'])){
+                if ($attributes['type'] == 'driver'){
+                    if ($user->type == 'rider'){
+                        $suspend_user = true;
+                    }
+                }
+            }
+            $user->update($attributes);
+            if (isset($suspend_user)){
+                $user->status = 'suspended';
+                $user->save();
+            }
             return response()->json(apiResponseMessage(trans('user information updated successfully'), ['user' => $user]), 200);
         } catch (\Exception $e) {
             return response()->json(apiResponseMessage(trans('failed to update user information'), ['error' => $e]), 400);
@@ -128,6 +150,8 @@ class UserController extends Controller
         if (!$user){
             return response()->json(apiResponseMessage(trans('failed to delete a user'), ['error' => 'not valid user id']), 400);
         }else{
+            $user->status = 'suspended';
+            $user->save();
             $user->delete();
             return response()->json(apiResponseMessage(trans('user deleted successfully'), []), 200);
 

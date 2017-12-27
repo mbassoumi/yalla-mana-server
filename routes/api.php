@@ -30,4 +30,49 @@ Route::post('get-code', 'Auth\LoginController@apiGetCode');
 });
 
 
-Route::resource('trip','TripController');
+//#####################################   trip routes   ##############################################
+/*
+ * trip routes
+ */
+\Route::resource('trip','TripController');
+
+
+
+//#####################################   user routes   ##############################################
+
+
+/*
+ * user routes
+ */
+\Route::resource('user','UserController');
+
+
+//#####################################   car routes   ##############################################
+
+/*
+ * cars routes
+ */
+\Route::resource('car','CarController');
+
+
+//#####################################   social media routes   #####################################
+
+/*
+ * Posts routes
+ */
+\Route::get('post/{post_id}/comments','PostController@getPostComments');
+\Route::get('post/my_post','PostController@getMyPost');
+\Route::resource('post','PostController');
+
+
+/*
+ * comments controller
+ */
+\Route::resource('comment','CommentController');
+\Route::get('comment/{comment_id}/post','CommentController@getCommentPost');
+
+//#####################################   trip routs   ##############################################
+
+
+
+

@@ -22,7 +22,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return response()->json(apiResponseMessage(trans('posts list'), ['posts' => $posts]), 200);
+
     }
 
     /**
@@ -52,7 +54,7 @@ class PostController extends Controller
 
         try {
             $post = Post::create($attributes);
-            return response()->json(apiResponseMessage(trans('post created successfully'), []), 200);
+            return response()->json(apiResponseMessage(trans('post created successfully'), ['post' => $post]), 200);
         } catch (\Exception $e) {
             return response()->json(apiResponseMessage(trans('failed to create a post'), ['error' => $e]), 400);
         }
@@ -107,8 +109,8 @@ class PostController extends Controller
         $attributes = $request->all();
 
         try {
-            $post = $post->update($attributes);
-            return response()->json(apiResponseMessage(trans('post updated successfully'), []), 200);
+            $post->update($attributes);
+            return response()->json(apiResponseMessage(trans('post updated successfully'), ['post' => $post]), 200);
         } catch (\Exception $e) {
             return response()->json(apiResponseMessage(trans('failed to update post'), ['error' => $e]), 400);
         }
@@ -126,9 +128,42 @@ class PostController extends Controller
         if (!$post){
             return response()->json(apiResponseMessage(trans('failed to delete a post'), ['error' => 'not valid post id']), 400);
         }else{
+            $comments = $post->comments;
             $post->delete();
+            foreach ($comments as $comment){
+                $comment->delete();
+            }
             return response()->json(apiResponseMessage(trans('post deleted successfully'), []), 200);
 
+        }
+    }
+
+    /**
+     * @param $post_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getPostComments($post_id)
+    {
+        try{
+            $post = Post::find($post_id);
+            $comments = $post->comments;
+            return response()->json(apiResponseMessage(trans('post\'s comments'), ['comments' => $comments]), 200);
+        }catch (\Exception $e){
+            return response()->json(apiResponseMessage(trans('error'), ['error' => $e]), 400);
+        }
+    }
+
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getMyPost()
+    {
+        try{
+            $posts = Post::where('created_by', '=', user()->id)->get();
+            return response()->json(apiResponseMessage(trans('my posts'), ['posts' => $posts]), 200);
+        }catch (\Exception $e){
+            return response()->json(apiResponseMessage(trans('error'), ['error' => $e]), 400);
         }
     }
 }

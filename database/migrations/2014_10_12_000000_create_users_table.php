@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         \Schema::create('users', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->string('name')->default('');
-            $table->string('phone')->unique();
+            $table->string('phone',250)->unique();
             $table->string('api_token', 60)->nullable()->unique();
             $table->string('photo', 500)->nullable();
             $table->enum('status', [ 'active', 'suspended'])->default('active');

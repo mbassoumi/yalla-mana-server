@@ -21,7 +21,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        $cars = Car::all();
+        return response()->json(apiResponseMessage(trans('cars list'), ['cars' => $cars]), 200);
     }
 
     /**
@@ -50,7 +51,7 @@ class CarController extends Controller
 
         try {
             $car = Car::create($attributes);
-            return response()->json(apiResponseMessage(trans('car created successfully'), []), 200);
+            return response()->json(apiResponseMessage(trans('car created successfully'), ['car' => $car]), 200);
         } catch (\Exception $e) {
             return response()->json(apiResponseMessage(trans('failed to create a car'), ['error' => $e]), 400);
         }

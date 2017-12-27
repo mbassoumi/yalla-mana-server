@@ -24,7 +24,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::all();
+        return response()->json(apiResponseMessage(trans('comments list'), ['comments' => $comments]), 200);
+
     }
 
     /**
@@ -54,7 +56,7 @@ class CommentController extends Controller
             $comment = Comment::create($attributes);
             $post = Post::find($post_id);
             $post->addComment($comment->body);
-            return response()->json(apiResponseMessage(trans('comment created successfully'), []), 200);
+            return response()->json(apiResponseMessage(trans('comment created successfully'), ['comment' => $comment]), 200);
         }catch (\Exception $e){
             return response()->json(apiResponseMessage(trans('failed to create a comment'), ['error' => $e]), 400);
         }
@@ -103,8 +105,8 @@ class CommentController extends Controller
         $attributes = $request->all();
 
         try {
-            $comment = $comment->update($attributes);
-            return response()->json(apiResponseMessage(trans('comment updated successfully'), []), 200);
+            $comment->update($attributes);
+            return response()->json(apiResponseMessage(trans('comment updated successfully'), ['comment' => $comment]), 200);
         } catch (\Exception $e) {
             return response()->json(apiResponseMessage(trans('failed to update comment'), ['error' => $e]), 400);
         }
@@ -125,6 +127,17 @@ class CommentController extends Controller
             $comment->delete();
             return response()->json(apiResponseMessage(trans('comment deleted successfully'), []), 200);
 
+        }
+    }
+
+    public function getCommentPost($comment_id)
+    {
+        try{
+            $comment = Comment::find($comment_id);
+            $post = $comment->post;
+            return response()->json(apiResponseMessage(trans('comment\'s post'), ['post' => $post]), 200);
+        }catch (\Exception $e){
+            return response()->json(apiResponseMessage(trans('error'), ['error' => $e]), 400);
         }
     }
 }
