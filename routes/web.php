@@ -18,3 +18,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');*/
+
+
+\Route::get('majd',function (){
+    $user = \App\User::find(1);
+    $trip = \App\Trip::find(6);
+//    $trip->riders()->attach(1);
+    dd($trip->riders()->count());
+    dd($trip->driver);
+    dd('aa');
+    dd($trip->car->seats_number);
+
+    dd($user->car);
+});

@@ -33,9 +33,12 @@ class Trip extends Model
         return $this->belongsToMany(User::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function car()
     {
-        return $this->hasOne(Car::class);
+        return $this->belongsTo(Car::class);
     }
 
     /**
@@ -43,7 +46,7 @@ class Trip extends Model
      */
     public function driver()
     {
-        return $this->hasOne(User::class, 'driver_id');
+        return $this->hasOne(User::class, 'id','driver_id');
     }
 
 

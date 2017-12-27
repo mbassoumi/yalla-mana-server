@@ -37,11 +37,11 @@ class Car extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function trips()
     {
-        return $this->belongsToMany(Trip::class);
+        return $this->hasMany(Trip::class);
     }
 
 

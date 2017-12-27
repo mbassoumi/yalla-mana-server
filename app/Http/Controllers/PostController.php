@@ -56,7 +56,7 @@ class PostController extends Controller
             $post = Post::create($attributes);
             return response()->json(apiResponseMessage(trans('post created successfully'), ['post' => $post]), 200);
         } catch (\Exception $e) {
-            return response()->json(apiResponseMessage(trans('failed to create a post'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to create a post'), ['error' => $e->getMessage()]), 400);
         }
 
         /*if ($request->hasFile('photo')) {
@@ -112,7 +112,7 @@ class PostController extends Controller
             $post->update($attributes);
             return response()->json(apiResponseMessage(trans('post updated successfully'), ['post' => $post]), 200);
         } catch (\Exception $e) {
-            return response()->json(apiResponseMessage(trans('failed to update post'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to update post'), ['error' => $e->getMessage()]), 400);
         }
     }
 
@@ -149,7 +149,7 @@ class PostController extends Controller
             $comments = $post->comments;
             return response()->json(apiResponseMessage(trans('post\'s comments'), ['comments' => $comments]), 200);
         }catch (\Exception $e){
-            return response()->json(apiResponseMessage(trans('error'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('error'), ['error' => $e->getMessage()]), 400);
         }
     }
 
@@ -163,7 +163,7 @@ class PostController extends Controller
             $posts = Post::where('created_by', '=', user()->id)->get();
             return response()->json(apiResponseMessage(trans('my posts'), ['posts' => $posts]), 200);
         }catch (\Exception $e){
-            return response()->json(apiResponseMessage(trans('error'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('error'), ['error' => $e->getMessage()]), 400);
         }
     }
 }

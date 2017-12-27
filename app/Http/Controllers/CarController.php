@@ -53,7 +53,7 @@ class CarController extends Controller
             $car = Car::create($attributes);
             return response()->json(apiResponseMessage(trans('car created successfully'), ['car' => $car]), 200);
         } catch (\Exception $e) {
-            return response()->json(apiResponseMessage(trans('failed to create a car'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to create a car'), ['error' => $e->getMessage()]), 400);
         }
     }
 
@@ -103,7 +103,7 @@ class CarController extends Controller
             $car = $car->update($attributes);
             return response()->json(apiResponseMessage(trans('car updated successfully'), []), 200);
         } catch (\Exception $e) {
-            return response()->json(apiResponseMessage(trans('failed to update car'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to update car'), ['error' => $e->getMessage()]), 400);
         }
     }
 

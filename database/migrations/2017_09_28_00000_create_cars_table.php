@@ -15,7 +15,7 @@ class CreateCarsTable extends Migration
     {
         \Schema::create('cars', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->unique();
             $table->string('photo');
             $table->string('model_type');
             $table->unsignedInteger('model_year')->nullable();

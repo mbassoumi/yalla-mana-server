@@ -34,7 +34,9 @@ Route::post('get-code', 'Auth\LoginController@apiGetCode');
 /*
  * trip routes
  */
+\Route::post('trip/{trip_id}/reserve','TripController@reserveTrip');
 \Route::resource('trip','TripController');
+
 
 
 

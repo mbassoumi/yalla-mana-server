@@ -58,7 +58,7 @@ class CommentController extends Controller
             $post->addComment($comment->body);
             return response()->json(apiResponseMessage(trans('comment created successfully'), ['comment' => $comment]), 200);
         }catch (\Exception $e){
-            return response()->json(apiResponseMessage(trans('failed to create a comment'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to create a comment'), ['error' => $e->getMessage()]), 400);
         }
     }
 
@@ -108,7 +108,7 @@ class CommentController extends Controller
             $comment->update($attributes);
             return response()->json(apiResponseMessage(trans('comment updated successfully'), ['comment' => $comment]), 200);
         } catch (\Exception $e) {
-            return response()->json(apiResponseMessage(trans('failed to update comment'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to update comment'), ['error' => $e->getMessage()]), 400);
         }
     }
 
@@ -137,7 +137,7 @@ class CommentController extends Controller
             $post = $comment->post;
             return response()->json(apiResponseMessage(trans('comment\'s post'), ['post' => $post]), 200);
         }catch (\Exception $e){
-            return response()->json(apiResponseMessage(trans('error'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('error'), ['error' => $e->getMessage()]), 400);
         }
     }
 }

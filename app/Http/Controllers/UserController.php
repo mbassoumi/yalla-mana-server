@@ -64,7 +64,7 @@ class UserController extends Controller
             }
             return response()->json(apiResponseMessage(trans('user registered successfully'), ['user' => $user]), 200);
         } catch (\Exception $e) {
-            return response()->json(apiResponseMessage(trans('failed to register user'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to register user'), ['error' => $e->getMessage()]), 400);
         }
     }
 
@@ -134,7 +134,7 @@ class UserController extends Controller
             }
             return response()->json(apiResponseMessage(trans('user information updated successfully'), ['user' => $user]), 200);
         } catch (\Exception $e) {
-            return response()->json(apiResponseMessage(trans('failed to update user information'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to update user information'), ['error' => $e->getMessage()]), 400);
         }
     }
 

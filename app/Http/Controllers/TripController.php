@@ -54,12 +54,24 @@ class TripController extends Controller
             'name' => 'required',
         ]);
         try {
-            /*$attributes['start_point'] = json_encode($attributes['start_point']);
-            $attributes['end_point'] = json_encode($attributes['end_point']);*/
+            if (isset($attributes['status']) and $attributes['status'] == 'offered'){
+                $user = user();
+                if ($user->type == 'driver' and $user->status != 'suspended'){
+                    $attributes['driver_id'] = $user->id;
+                    $car = $user->car;
+                    if (! $car){
+                        throw new \Exception('dont have a car');
+                    }
+                    $attributes['car_id'] = $car->id;
+
+                }else{
+                    throw new \Exception('can\'t offer a trip');
+                }
+            }
             $trip = Trip::create($attributes);
-            return response()->json(apiResponseMessage(trans('trip created successfully'), []), 200);
+            return response()->json(apiResponseMessage(trans('trip created successfully'), ['trip' => $trip]), 200);
         } catch (\Exception $e) {
-            return response()->json(apiResponseMessage(trans('failed to create trip'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to create trip'), ['error' => $e->getMessage()]), 400);
         }
         //
     }
@@ -125,7 +137,7 @@ class TripController extends Controller
             $trip = $trip->update($attributes);
             return response()->json(apiResponseMessage(trans('trip updated successfully'), []), 200);
         } catch (\Exception $e) {
-            return response()->json(apiResponseMessage(trans('failed to update trip'), ['error' => $e]), 400);
+            return response()->json(apiResponseMessage(trans('failed to update trip'), ['error' => $e->getMessage()]), 400);
         }
     }
 
@@ -146,5 +158,28 @@ class TripController extends Controller
 
         }
         //
+    }
+
+    public function reserveTrip($trip_id)
+    {
+        try {
+
+            $trip = Trip::find($trip_id);
+            if (!$trip) {
+                return response()->json(apiResponseMessage(trans('failed to reserve a trip'), ['error' => 'not valid trip id']), 400);
+            } else {
+                logger($trip->car->seats_number);
+                logger($trip->riders()->count());
+                if ($trip->riders()->count() < $trip->car->seats_number){
+                    $trip->riders()->attach(user()->id);
+                    return response()->json(apiResponseMessage(trans('trip reserved successfully'), []), 200);
+                }
+                else{
+                    throw new \Exception('the trip is full');
+                }
+            }
+        }catch (\Exception $e){
+            return response()->json(apiResponseMessage(trans('failed to reserve a trip'), ['error' => $e->getMessage()]), 400);
+        }
     }
 }
