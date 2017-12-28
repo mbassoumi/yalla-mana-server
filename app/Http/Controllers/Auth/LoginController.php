@@ -49,6 +49,10 @@ class LoginController extends Controller
     public function apiLogin()
     {
         $phone = \request()->get('phone');
+        logger(\request()->all());
+        if(!$phone){
+            return response()->json(apiResponseMessage(trans('wrong request parameter'), ['request' => \request()->all()]), 200);
+        }
         $new_user = false;
         $user = User::where('phone',request('phone'))->first();
         if(!$user) {
