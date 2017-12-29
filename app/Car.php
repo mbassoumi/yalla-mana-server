@@ -10,11 +10,15 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
+use Spatie\MediaLibrary\Media;
 use Yajra\Auditable\AuditableTrait;
 
-class Car extends Model
+class Car extends Model implements HasMedia, HasMediaConversions
 {
-    use SoftDeletes, AuditableTrait;
+    use SoftDeletes, AuditableTrait, HasMediaTrait;
 
     protected $casts = [
         'start_point' => 'json',
@@ -42,6 +46,14 @@ class Car extends Model
     public function trips()
     {
         return $this->hasMany(Trip::class);
+    }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->width(150)
+            ->height(150)
+            ->sharpen(10);
     }
 
 

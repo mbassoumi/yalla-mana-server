@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('auth/login', 'Auth\LoginController@apiLogin');
+Route::post('auth/signup', 'Auth\LoginController@apiSignUp');
 
 Route::post('get-code', 'Auth\LoginController@apiGetCode');
 

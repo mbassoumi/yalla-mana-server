@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Car;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -44,11 +45,14 @@ class LoginController extends Controller
     }
 
     /**
+     * @param string $phone
      * @return \Illuminate\Http\JsonResponse
      */
-    public function apiLogin()
+    public function apiLogin($phone = 'url')
     {
-        $phone = \request()->get('phone');
+        if ($phone == 'url'){
+            $phone = \request()->get('phone');
+        }
         if(!$phone){
             return response()->json(apiResponseMessage(trans('wrong request parameter'), ['error' => 'you send phone number as [ '. implode(" , ", \request()->keys()) .' ]' ]), 400);
         }
@@ -69,10 +73,88 @@ class LoginController extends Controller
     }
 
 
-//    public function apiSignUp()
-//    {
-//
-//    }
+    /**
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    public function apiSignUp()
+    {
+        $request_attributes = \request()->all();
+
+        $this->validate(request(),[
+            'phone' => 'required',//|min:10|max:10',
+            'name' => 'required',
+            'gender' => 'required',
+            'type' => 'required',
+        ]);
+        $user = new User();
+        $user->name = $request_attributes['name'];
+        $user->phone = $request_attributes['phone'];
+        $user->type = $request_attributes['type'];
+        $user->gender = $request_attributes['gender'];
+        if (isset($request_attributes['email'])){
+            $user->email = $request_attributes['email'];
+        }
+
+        if (strtolower($request_attributes['type']) == 'rider'){
+            try {
+                $user->status = 'active';
+                $user->save();
+                if (isset($request_attributes['photo'])){
+                    $media = $user->addMedia($request_attributes['photo'])->preservingOriginal()->toMediaCollection();
+                    $user->photo = $media->getUrl('thumb');
+                    $user->save();
+                }
+                return $this->apiLogin($user->phone);
+            } catch (\Exception $e) {
+                if ($user){
+                    $user->forceDelete();
+                }
+                return response()->json(apiResponseMessage(trans('failed to register user'), ['error' => $e->getMessage()]), 400);
+            }
+        }elseif(strtolower($request_attributes['type']) == 'driver'){
+            try {
+                $this->validate(request(),[
+                    'driver_licence' => 'required',
+                    'car' => 'required',
+                    'car.seats_number' => 'required',
+                    'car.model_type' => 'required',
+                    'car.car_licence' => 'required',
+                ]);
+                $user->status = 'suspended';
+                $user->save();
+                if (isset($request_attributes['photo'])){
+                    $media = $user->addMedia($request_attributes['photo'])->preservingOriginal()->toMediaCollection();
+                    $user->photo = $media->getUrl('thumb');
+                    $user->save();
+                }
+                $car = new Car();
+                $car->user_id = $user->id;
+                $car->car_licence = $request_attributes['car']['car_licence'];
+                $car->seats_number = $request_attributes['car']['seats_number'];
+                $car->model_type = $request_attributes['car']['model_type'];
+                if (isset($request_attributes['car']['model_year'])){
+                    $car->model_year = $request_attributes['car']['model_year'];
+                }
+                $car->save();
+                if (isset($request_attributes['car']['photo'])){
+                    $media = $car->addMedia($request_attributes['car']['photo'])->preservingOriginal()->toMediaCollection();
+                    $car->photo = $media->getUrl('thumb');
+                    $car->save();
+                }
+                return $this->apiLogin($user->phone);
+            } catch (\Exception $e) {
+                if ($user){
+                    $user->forceDelete();
+                }
+                if (isset($car) and $car){
+                    $car->forceDelete();
+                }
+
+                return response()->json(apiResponseMessage(trans('failed to register user'), ['error' => $e->getMessage()]), 400);
+            }
+        }
+        return $request_attributes;
+    }
 
    /* public function apiGetCode()
     {

@@ -10,11 +10,15 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
+use Spatie\MediaLibrary\Media;
 use Yajra\Auditable\AuditableTrait;
 
-class Comment extends Model
+class Comment extends Model implements HasMedia, HasMediaConversions
 {
-    use SoftDeletes, AuditableTrait;
+    use SoftDeletes, AuditableTrait, HasMediaTrait;
 
     public function post()
     {
@@ -24,6 +28,14 @@ class Comment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->width(150)
+            ->height(150)
+            ->sharpen(10);
     }
 
 

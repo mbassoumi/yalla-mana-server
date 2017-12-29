@@ -10,12 +10,17 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
+use Spatie\MediaLibrary\Media;
 use Yajra\Auditable\AuditableTrait;
 
-class Post extends Model
+class Post extends Model implements HasMedia, HasMediaConversions
 {
 
-    use SoftDeletes, AuditableTrait;
+    use SoftDeletes, AuditableTrait, HasMediaTrait;
+
 
     public function comments()
     {
@@ -30,6 +35,14 @@ class Post extends Model
     public function addComment($body)
     {
         $this->comments()->create(compact('body'));
+    }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->width(150)
+            ->height(150)
+            ->sharpen(10);
     }
 
 }

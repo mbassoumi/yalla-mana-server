@@ -21,13 +21,11 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 
 
 \Route::get('majd',function (){
-    $user = \App\User::find(1);
-    $trip = \App\Trip::find(6);
-//    $trip->riders()->attach(1);
-    dd($trip->riders()->count());
-    dd($trip->driver);
-    dd('aa');
-    dd($trip->car->seats_number);
+    $user = \App\User::find(46);
+    return $user->getFirstMedia($user->getMedia());
+    $user->registerMediaConversions($user->getFirstMedia());
 
-    dd($user->car);
+    return $user->getMedia()->first()->getUrl('thumb');
+
+    return $user->getMedia();
 });
