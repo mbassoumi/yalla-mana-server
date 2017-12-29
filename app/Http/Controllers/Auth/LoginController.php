@@ -49,22 +49,30 @@ class LoginController extends Controller
     public function apiLogin()
     {
         $phone = \request()->get('phone');
-        logger(\request()->all());
         if(!$phone){
-            return response()->json(apiResponseMessage(trans('wrong request parameter'), ['request' => \request()->all()]), 200);
+            return response()->json(apiResponseMessage(trans('wrong request parameter'), ['error' => 'you send phone number as [ '. implode(" , ", \request()->keys()) .' ]' ]), 400);
         }
         $new_user = false;
-        $user = User::where('phone',request('phone'))->first();
+        $user = User::where('phone',$phone)->first();
         if(!$user) {
             $new_user = true;
             return response()->json(apiResponseMessage(trans('unregistered user'), ['new_user' => $new_user]), 200);
         }
+        if($user->status == 'suspended'){
+            return response()->json(apiResponseMessage(trans('cant login to system'), ['user' => $user, 'error' => 'suspended user']), 403);
+        }
         \DB::table('oauth_access_tokens')->where('user_id','=', $user->id)->update(['revoked' => 1]);
-        $auth_user = Auth::loginUsingId($user->id);
+        $auth_user = \Auth::loginUsingId($user->id);
         $token = $auth_user->createToken(config('app.name'))->accessToken;
         return response()->json(apiResponseMessage(trans('Login Successfully'), ['user' => $auth_user, 'new_user' => $new_user, 'token' => $token]), 200);
 
     }
+
+
+//    public function apiSignUp()
+//    {
+//
+//    }
 
    /* public function apiGetCode()
     {
