@@ -35,8 +35,11 @@ Route::post('get-code', 'Auth\LoginController@apiGetCode');
 /*
  * trip routes
  */
+
+\Route::post('trip/offer', 'TripController@store');
+\Route::post('trip/request', 'TripController@store');
 \Route::post('trip/{trip_id}/reserve','TripController@reserveTrip');
-\Route::resource('trip','TripController');
+\Route::resource('trip','TripController')->only(['update', 'destroy', 'show']);
 
 
 
@@ -74,8 +77,6 @@ Route::post('get-code', 'Auth\LoginController@apiGetCode');
 \Route::resource('comment','CommentController');
 \Route::get('comment/{comment_id}/post','CommentController@getCommentPost');
 
-//#####################################   trip routs   ##############################################
 
-
-
-
+//#####################################   city routes   ##############################################
+\Route::resource('city', 'CityController')->only(['index', 'show']);

@@ -49,6 +49,23 @@ class Trip extends Model
         return $this->hasOne(User::class, 'id','driver_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function fromTripCity()
+    {
+        return $this->hasOne(City::class, 'id','from_city_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function toTripCity()
+    {
+        return $this->hasOne(City::class, 'id','to_city_id');
+    }
+
+
 
 
 }

@@ -51,6 +51,9 @@ class LoginController extends Controller
     public function apiLogin($phone = 'url')
     {
         if ($phone == 'url'){
+            $this->validate(\request(), [
+                'phone' => 'required'
+            ]);
             $phone = \request()->get('phone');
         }
         if(!$phone){
@@ -132,15 +135,16 @@ class LoginController extends Controller
                 $car->car_licence = $request_attributes['car']['car_licence'];
                 $car->seats_number = $request_attributes['car']['seats_number'];
                 $car->model_type = $request_attributes['car']['model_type'];
+                $car->photo = isset($request_attributes['car']['photo']) ? $request_attributes['car']['photo'] : null;
                 if (isset($request_attributes['car']['model_year'])){
                     $car->model_year = $request_attributes['car']['model_year'];
                 }
                 $car->save();
-                if (isset($request_attributes['car']['photo'])){
+                /*if (isset($request_attributes['car']['photo'])){
                     $media = $car->addMedia($request_attributes['car']['photo'])->preservingOriginal()->toMediaCollection();
                     $car->photo = $media->getUrl('thumb');
                     $car->save();
-                }
+                }*/
                 return $this->apiLogin($user->phone);
             } catch (\Exception $e) {
                 if ($user){

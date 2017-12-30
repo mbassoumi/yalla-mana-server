@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TripRequest;
 use App\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,36 +40,46 @@ class TripController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param TripRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(TripRequest $request)
     {
         $attributes = $request->all();
 
-
-        //TODO: validate saving new trip
-        $this->validate(request(), [
-            'name' => 'required',
-        ]);
         try {
-            if (isset($attributes['status']) and $attributes['status'] == 'offered'){
-                $user = user();
-                if ($user->type == 'driver' and $user->status != 'suspended'){
-                    $attributes['driver_id'] = $user->id;
-                    $car = $user->car;
-                    if (! $car){
-                        throw new \Exception('dont have a car');
-                    }
-                    $attributes['car_id'] = $car->id;
+            if ($attributes['status'] == 'offered'){
 
-                }else{
-                    throw new \Exception('can\'t offer a trip');
+                $this->validate(\request(), [
+                    'seats_number' => 'required'
+                ]);
+
+                $user = user();
+                $attributes['driver_id'] = $user->id;
+                $car = $user->car;
+                if (!$car){
+                    throw new \Exception('dont have a car');
                 }
+                $attributes['car_id'] = $car->id;
+            }elseif ($attributes['status'] == 'requested'){
+                $attributes['seats_number'] = null;
+                $attributes['car_id'] = null;
+                $attributes['attributes'] = null;
+                $attributes['driver_id'] = null;
+            }else{
+                throw new \Exception('unknown trip status');
             }
-            $trip = Trip::create($attributes);
+            $trip = Trip::create([
+                'from_city_id' => $attributes['from_city_id'],
+                'to_city_id' => $attributes['to_city_id'],
+                'date' => $attributes['date'],
+                'price' => $attributes['price'],
+                'status' => $attributes['status'],
+                'seats_number' => isset($attributes['seats_number']) ? $attributes['seats_number'] : null ,
+                'driver_id' => isset($attributes['driver_id']) ? $attributes['driver_id'] : null ,
+                'attributes' => isset($attributes['attributes']) ? $attributes['attributes'] : null ,
+                'car_id' => isset($attributes['car_id']) ? $attributes['car_id'] : null ,
+            ]);
             return response()->json(apiResponseMessage(trans('trip created successfully'), ['trip' => $trip]), 200);
         } catch (\Exception $e) {
             return response()->json(apiResponseMessage(trans('failed to create trip'), ['error' => $e->getMessage()]), 400);
@@ -77,10 +88,9 @@ class TripController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @param $trip_id
      *
-     * @param  \App\Trip $trip
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($trip_id)
     {
@@ -106,11 +116,9 @@ class TripController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Trip $trip
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $trip_id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $trip_id)
     {
@@ -142,10 +150,8 @@ class TripController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Trip $trip
-     * @return \Illuminate\Http\Response
+     * @param $trip_id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($trip_id)
     {
@@ -160,6 +166,10 @@ class TripController extends Controller
         //
     }
 
+    /**
+     * @param $trip_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function reserveTrip($trip_id)
     {
         try {

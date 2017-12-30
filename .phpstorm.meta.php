@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-12-29.
+    * Generated on 2017-12-30.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -49,6 +49,8 @@ namespace PHPSTORM_META {
         'command.medialibrary:clear' => \Spatie\MediaLibrary\Commands\ClearCommand::class,
         'command.medialibrary:clean' => \Spatie\MediaLibrary\Commands\CleanCommand::class,
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
+        'iseed' => \Orangehill\Iseed\Iseed::class,
+        'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -188,6 +190,8 @@ namespace PHPSTORM_META {
         'command.medialibrary:clear' => \Spatie\MediaLibrary\Commands\ClearCommand::class,
         'command.medialibrary:clean' => \Spatie\MediaLibrary\Commands\CleanCommand::class,
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
+        'iseed' => \Orangehill\Iseed\Iseed::class,
+        'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -327,6 +331,8 @@ namespace PHPSTORM_META {
         'command.medialibrary:clear' => \Spatie\MediaLibrary\Commands\ClearCommand::class,
         'command.medialibrary:clean' => \Spatie\MediaLibrary\Commands\CleanCommand::class,
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
+        'iseed' => \Orangehill\Iseed\Iseed::class,
+        'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -466,6 +472,8 @@ namespace PHPSTORM_META {
         'command.medialibrary:clear' => \Spatie\MediaLibrary\Commands\ClearCommand::class,
         'command.medialibrary:clean' => \Spatie\MediaLibrary\Commands\CleanCommand::class,
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
+        'iseed' => \Orangehill\Iseed\Iseed::class,
+        'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -605,6 +613,8 @@ namespace PHPSTORM_META {
         'command.medialibrary:clear' => \Spatie\MediaLibrary\Commands\ClearCommand::class,
         'command.medialibrary:clean' => \Spatie\MediaLibrary\Commands\CleanCommand::class,
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
+        'iseed' => \Orangehill\Iseed\Iseed::class,
+        'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -744,6 +754,8 @@ namespace PHPSTORM_META {
         'command.medialibrary:clear' => \Spatie\MediaLibrary\Commands\ClearCommand::class,
         'command.medialibrary:clean' => \Spatie\MediaLibrary\Commands\CleanCommand::class,
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
+        'iseed' => \Orangehill\Iseed\Iseed::class,
+        'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -883,6 +895,8 @@ namespace PHPSTORM_META {
         'command.medialibrary:clear' => \Spatie\MediaLibrary\Commands\ClearCommand::class,
         'command.medialibrary:clean' => \Spatie\MediaLibrary\Commands\CleanCommand::class,
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
+        'iseed' => \Orangehill\Iseed\Iseed::class,
+        'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,

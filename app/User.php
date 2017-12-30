@@ -82,4 +82,13 @@ class User extends Authenticatable implements HasMedia, HasMediaConversions
             ->sharpen(10);
     }
 
+
+    public function isAdmin()
+    {
+        if (strtolower($this->type) == 'admin'){
+            return true;
+        }
+        return false;
+    }
+
 }
