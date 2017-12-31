@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->enum('type', [ 'admin', 'driver', 'rider'])->default('rider');
             $table->enum('gender', [ 'male', 'female']);
             $table->string('driver_licence')->nullable();
+            $table->json('attributes')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

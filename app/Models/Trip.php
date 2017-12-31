@@ -1,8 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 
+use App\Model;
+use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Yajra\Auditable\AuditableTrait;
 
@@ -12,8 +14,6 @@ class Trip extends Model
     use SoftDeletes, AuditableTrait;
 
     protected $casts = [
-        'start_point' => 'json',
-        'end_point' => 'json',
         'attributes' => 'json'
     ];
 
@@ -23,6 +23,7 @@ class Trip extends Model
         'updated_at',
         'deleted_at'
     ];
+
 
 
     /**

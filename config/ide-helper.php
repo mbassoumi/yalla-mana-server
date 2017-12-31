@@ -69,7 +69,7 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Extra classes
+    | Extra Classes
     |--------------------------------------------------------------------------
     |
     | These implementations are not really extended, but called with magic functions

@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Car;
+use App\Models\Car;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
-
 use Validator;
 use Illuminate\Http\Request;
 use App\User;

@@ -59,3 +59,20 @@ if (!function_exists('user')) {
     }
 
 }
+
+
+if (!function_exists('format_date_time')) {
+    /**
+     * Format datetime
+     *
+     * @param date $datetime
+     * @param string $format
+     *
+     * @return datetime
+     */
+    function format_date_time($datetime, $format = 'd M, Y h:i A')
+    {
+        return date($format, strtotime($datetime));
+    }
+
+}

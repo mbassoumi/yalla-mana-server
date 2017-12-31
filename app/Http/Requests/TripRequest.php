@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Trip;
+use App\Models\Trip;
 use App\Http\Requests\Request as FormRequest;
 use Illuminate\Validation\Rule;
 

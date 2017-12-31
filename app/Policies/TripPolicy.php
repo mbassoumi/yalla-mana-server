@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\Trip;
+use App\Models\Trip;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TripPolicy
@@ -14,7 +14,7 @@ class TripPolicy
      * Determine whether the user can view the trip.
      *
      * @param  \App\User  $user
-     * @param  \App\Trip  $trip
+     * @param  \App\Models\Trip  $trip
      * @return mixed
      */
     public function view(User $user, Trip $trip)
@@ -37,7 +37,7 @@ class TripPolicy
      * Determine whether the user can update the trip.
      *
      * @param  \App\User  $user
-     * @param  \App\Trip  $trip
+     * @param  \App\Models\Trip  $trip
      * @return mixed
      */
     public function update(User $user, Trip $trip)
@@ -49,7 +49,7 @@ class TripPolicy
      * Determine whether the user can delete the trip.
      *
      * @param  \App\User  $user
-     * @param  \App\Trip  $trip
+     * @param  \App\Models\Trip  $trip
      * @return mixed
      */
     public function delete(User $user, Trip $trip)

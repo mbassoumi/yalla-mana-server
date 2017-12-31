@@ -2,17 +2,17 @@
 
 namespace App\Providers;
 
-use App\Car;
-use App\City;
-use App\Comment;
+use App\Models\Car;
+use App\Models\City;
+use App\Models\Comment;
 use App\Policies\CarPolicy;
 use App\Policies\CityPolicy;
 use App\Policies\CommentPolicy;
 use App\Policies\PostPolicy;
 use App\Policies\TripPolicy;
 use App\Policies\UserPolicy;
-use App\Post;
-use App\Trip;
+use App\Models\Post;
+use App\Models\Trip;
 use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;

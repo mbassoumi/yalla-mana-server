@@ -13,7 +13,7 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->string('name');
+            $table->json('name');
             $table->string('lat');
             $table->string('lon');
             $table->json('attributes')->nullable();

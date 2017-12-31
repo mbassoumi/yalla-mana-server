@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-12-30.
+    * Generated on 2017-12-31.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -51,6 +51,7 @@ namespace PHPSTORM_META {
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
         'iseed' => \Orangehill\Iseed\Iseed::class,
         'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
+        'fractal' => \Spatie\Fractal\Fractal::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -192,6 +193,7 @@ namespace PHPSTORM_META {
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
         'iseed' => \Orangehill\Iseed\Iseed::class,
         'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
+        'fractal' => \Spatie\Fractal\Fractal::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -333,6 +335,7 @@ namespace PHPSTORM_META {
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
         'iseed' => \Orangehill\Iseed\Iseed::class,
         'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
+        'fractal' => \Spatie\Fractal\Fractal::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -474,6 +477,7 @@ namespace PHPSTORM_META {
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
         'iseed' => \Orangehill\Iseed\Iseed::class,
         'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
+        'fractal' => \Spatie\Fractal\Fractal::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -615,6 +619,7 @@ namespace PHPSTORM_META {
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
         'iseed' => \Orangehill\Iseed\Iseed::class,
         'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
+        'fractal' => \Spatie\Fractal\Fractal::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -756,6 +761,7 @@ namespace PHPSTORM_META {
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
         'iseed' => \Orangehill\Iseed\Iseed::class,
         'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
+        'fractal' => \Spatie\Fractal\Fractal::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
@@ -897,6 +903,7 @@ namespace PHPSTORM_META {
         'Spatie\MediaLibrary\Filesystem\Filesystem' => \Spatie\MediaLibrary\Filesystem\DefaultFilesystem::class,
         'iseed' => \Orangehill\Iseed\Iseed::class,
         'command.iseed' => \Orangehill\Iseed\IseedCommand::class,
+        'fractal' => \Spatie\Fractal\Fractal::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
         'cache' => \Illuminate\Cache\CacheManager::class,

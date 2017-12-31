@@ -2,13 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: majd2
- * Date: 2017-12-23
- * Time: 6:30 PM
+ * Date: 2017-12-17
+ * Time: 8:11 PM
  */
 
-namespace App;
+namespace App\Models;
 
 
+use App\Model;
+use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
@@ -16,14 +18,10 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 use Spatie\MediaLibrary\Media;
 use Yajra\Auditable\AuditableTrait;
 
-class Car extends Model implements HasMedia, HasMediaConversions
+class Post extends Model implements HasMedia, HasMediaConversions
 {
-    use SoftDeletes, AuditableTrait, HasMediaTrait;
 
     protected $casts = [
-        'start_point' => 'json',
-        'end_point' => 'json',
-        'attributes' => 'json'
     ];
 
     protected $dates = [
@@ -32,20 +30,22 @@ class Car extends Model implements HasMedia, HasMediaConversions
         'deleted_at'
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+    use SoftDeletes, AuditableTrait, HasMediaTrait;
+
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function trips()
+    public function addComment($body)
     {
-        return $this->hasMany(Trip::class);
+        $this->comments()->create(compact('body'));
     }
 
     public function registerMediaConversions(Media $media = null)
@@ -55,11 +55,5 @@ class Car extends Model implements HasMedia, HasMediaConversions
             ->height(150)
             ->sharpen(10);
     }
-
-
-
-
-
-
 
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TripRequest;
-use App\Trip;
+use App\Models\Trip;
+use App\Models\Trip\Transformers\TripTransformer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TripController extends Controller
 {
@@ -26,6 +26,7 @@ class TripController extends Controller
     public function index()
     {
         $trips = Trip::all();
+        $trips = fractal($trips, new TripTransformer())->toArray();
         return response()->json(apiResponseMessage(trans('trips list'), ['trips' => $trips]), 200);
     }
 
@@ -95,19 +96,23 @@ class TripController extends Controller
     public function show($trip_id)
     {
         //
-        $trip =  Trip::find($trip_id);
-        if (!$trip){
-            return response()->json(apiResponseMessage(trans('failed to retrieve a trip'), ['error' => 'not valid trip id']), 400);
-        }else{
-            return response()->json(apiResponseMessage(trans('trip retrieved successfully'), ['trip' => $trip]), 200);
-
+        try{
+            $trip =  Trip::find($trip_id);
+            if (!($trip)){
+                return response()->json(apiResponseMessage(trans('failed to retrieve a trip'), ['error' => 'not valid trip id']), 400);
+            }else{
+                $trip = fractal($trip, new TripTransformer())->toArray();
+                return response()->json(apiResponseMessage(trans('trip retrieved successfully'), ['trip' => $trip]), 200);
+            }
+        }catch (\Exception $e){
+            return response()->json(apiResponseMessage(trans('failed to retrieve a trip'), ['error' => $e->getMessage()]), $e->getCode());
         }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Trip $trip
+     * @param  \App\Models\Trip $trip
      * @return \Illuminate\Http\Response
      */
     public function edit(Trip $trip)
