@@ -38,7 +38,9 @@ Route::post('get-code', 'Auth\LoginController@apiGetCode');
 
 \Route::post('trip/offer', 'TripController@store');
 \Route::post('trip/request', 'TripController@store');
-\Route::post('trip/{trip_id}/reserve','TripController@reserveTrip');
+\Route::get('trip/my-trips', 'TripController@myTrips');
+\Route::post('trip/{trip}/reserve','TripController@reserveTrip');
+\Route::post('trip/{trip}/cancel-reservation','TripController@cancelReservation');
 \Route::resource('trip','TripController')->only(['update', 'destroy', 'show', 'index']);
 
 

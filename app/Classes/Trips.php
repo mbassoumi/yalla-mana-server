@@ -28,15 +28,16 @@ class Trips
      */
     public function canDeleteTrip(Trip $trip)
     {
-        $days_to_start = ($trip->date)->diffInDays(Carbon::now());
-        logger($trip->date);
-        logger(Carbon::now());
-        logger($days_to_start);
-        if($days_to_start >= 1){
-            return true;
-        }else{
-            return false;
-        }
+        return \Auth::user()->can('delete', $trip);
+    }
+
+    /**
+     * @param Trip $trip
+     * @return bool
+     */
+    public function canCancelReservation(Trip $trip)
+    {
+        return \Auth::user()->can('cancelReservation', $trip);
     }
 
     /**
@@ -62,11 +63,7 @@ class Trips
      */
     public function canReserve(Trip $trip)
     {
-        if ($trip->seats_number > $trip->riders()->count()){
-            return true;
-        }else{
-            return false;
-        }
+        return \Auth::user()->can('reserveTrip', $trip);
     }
 
 

@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Model;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Yajra\Auditable\AuditableTrait;
 
@@ -64,6 +65,26 @@ class Trip extends Model
     public function toTripCity()
     {
         return $this->hasOne(City::class, 'id','to_city_id');
+    }
+
+    /**
+     * @return int
+     */
+    public function stillDays()
+    {
+        if((Carbon::now()) > ($this->date)){
+            return -($this->date)->diffInDays(Carbon::now());
+        }else{
+            return ($this->date)->diffInDays(Carbon::now());
+        }
+    }
+
+    public function hasUser(User $user){
+        $has_user = $this->riders()->where('id', '=', $user->id)->get()->toArray();
+        if (!empty($has_user)){
+            return true;
+        }
+        return false;
     }
 
 

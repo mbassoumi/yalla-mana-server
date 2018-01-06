@@ -54,6 +54,11 @@ class User extends Authenticatable implements HasMedia, HasMediaConversions
         return $this->belongsToMany(Trip::class);
     }
 
+    public function drivingTrips()
+    {
+        return $this->hasMany(Trip::class, 'driver_id', 'id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -94,5 +99,31 @@ class User extends Authenticatable implements HasMedia, HasMediaConversions
         }
         return false;
     }
+
+    /**
+     * @param Trip $trip
+     * @return bool
+     */
+    public function hasTripToRide(Trip $trip)
+    {
+        $users_ids = $trip->riders->pluck('id','id')->toArray();
+        if (in_array($this->id, $users_ids)){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param Trip $trip
+     * @return bool
+     */
+    public function hasTripToDrive(Trip $trip)
+    {
+        if ($trip->driver_id != null and $this->id == $trip->diver_id){
+            return true;
+        }
+        return false;
+    }
+
 
 }

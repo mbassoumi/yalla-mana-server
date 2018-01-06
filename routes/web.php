@@ -19,13 +19,3 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');*/
 
-
-\Route::get('majd',function (){
-    $user = \App\User::find(46);
-    return $user->getFirstMedia($user->getMedia());
-    $user->registerMediaConversions($user->getFirstMedia());
-
-    return $user->getMedia()->first()->getUrl('thumb');
-
-    return $user->getMedia();
-});

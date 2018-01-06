@@ -19,26 +19,30 @@ class TripRequest extends FormRequest
 
 
         if (\Request::is('*/offer')){
-
             return \Auth::user()->can('offerTrip', Trip::class);
-
-            /*if ($this->user()->type == 'driver' and $this->user()->status =='active'){
-                return true;
-            }
-            return false;*/
         }
 
         if (\Request::is('*/request')){
             return \Auth::user()->can('requestTrip', Trip::class);
-
-            /*if ($this->user()->status =='active'){
-                return true;
-            }
-            return false;*/
         }
 
+        if ($this->isDelete()){
+            return $trip and $this->user()->can('delete', $trip);
+        }
 
-        return false;
+        if ($this->isUpdate()){
+            return $trip and $this->user()->can('update', $trip);
+        }
+
+        if (\Request::is('*/reserve')){
+            return $trip and $this->user()->can('reserveTrip', $trip);
+        }
+
+        if (\Request::is('*/cancel-reservation')){
+            return $trip and $this->user()->can('cancelReservation', $trip);
+        }
+
+        return true;
     }
 
     /**
@@ -48,9 +52,13 @@ class TripRequest extends FormRequest
      */
     public function rules()
     {
-        $trip = $this->route('trip');
+//        $trip = $this->route('trip');
 
         $rules = [];
+
+        if (\Request::is('*/reserve') or \Request::is('*/cancel-reservation') ){
+            return [];
+        }
 
         if ($this->isStore()) {
             // validation rule for create request.

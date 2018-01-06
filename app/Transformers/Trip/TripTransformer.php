@@ -11,6 +11,7 @@ namespace App\Models\Trip\Transformers;
 
 use App\Facades\Trips;
 use App\Models\Trip;
+use App\User;
 use Carbon\Carbon;
 use League\Fractal\TransformerAbstract;
 
@@ -33,9 +34,10 @@ class TripTransformer extends TransformerAbstract
             'updated_by' => $trip->updater,
             'created_at' => format_date_time($trip->created_at),
             'updated_at' => format_date_time($trip->updated_at),
-            'can_cancel' => ($trip->date)->diffInDays(Carbon::now()) >= 1 ? true : false,
+            'can_cancel' => Trips::canCancelReservation($trip),
             'can_delete' => Trips::canDeleteTrip($trip),
             'can_reserve' => Trips::canReserve($trip),
+            'has_user' => $trip->hasUser(\user()),
         ];
     }
 }
