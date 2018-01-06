@@ -70,7 +70,7 @@ if (!function_exists('format_date_time')) {
     {
 //        return date($format, strtotime($datetime));
         return [
-            'date' => date('d.m.Y', strtotime($datetime)),
+            'date' => date('Y-m-d', strtotime($datetime)),
             'time' => date('H:i:s', strtotime($datetime))
             //$datetime->format('d.m.Y'),
         ];

@@ -56,9 +56,9 @@ class TripController extends Controller
         try {
             if ($attributes['status'] == 'offered'){
 
-                $this->validate(\request(), [
+               /* $this->validate(\request(), [
                     'seats_number' => 'required'
-                ]);
+                ]);*/
 
                 $user = user();
                 $attributes['driver_id'] = $user->id;

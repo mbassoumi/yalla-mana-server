@@ -45,8 +45,6 @@ class TripPolicy
      */
     public function update(User $user, Trip $trip)
     {
-        logger($trip->created_by == $user->id);
-        logger($trip->riders()->count() == 0);
         if ($trip->created_by == $user->id
             and $trip->riders()->count() == 0) {
             return true;
@@ -104,7 +102,7 @@ class TripPolicy
         //TODO: check if user has another trip at same time.
         if ($trip->driver_id != $user->id
             and $trip->seats_number > $trip->riders()->count()
-            and $trip->stillDays() >= 1
+            and $trip->stillDays() >= 1 //change to time
             and !$user->hasTripToRide($trip)) {
             return true;
         } else {
@@ -119,7 +117,7 @@ class TripPolicy
      */
     public function cancelReservation(User $user, Trip $trip)
     {
-        if ($trip->stillDays() >= 1
+        if ($trip->stillDays() >= 1 // change to time
             and $user->hasTripToRide($trip)
             and $trip->driver_id != $user->id) {
             return true;

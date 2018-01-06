@@ -66,6 +66,7 @@ class TripRequest extends FormRequest
             $rules['to_city_id'] = 'required';
             $rules['date'] = 'required';
             $rules['price'] = 'required';
+            $rules['seats_number'] = 'required';
             $rules['status'] = [
                 'required',
                 Rule::in(['offered', 'requested']),
