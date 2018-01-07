@@ -85,6 +85,9 @@ class TripController extends Controller
                 'car_id' => isset($attributes['car_id']) ? $attributes['car_id'] : null ,
             ]);
 
+            if ($trip->status == 'requested'){
+                $trip->riders()->attach(user()->id);
+            }
             $trip = fractal($trip, new TripTransformer())->toArray();
             return response()->json(apiResponseMessage(trans('trip created successfully'), ['trip' => $trip['data']]), 200);
         } catch (\Exception $e) {

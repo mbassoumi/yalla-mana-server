@@ -30,6 +30,7 @@ class TripTransformer extends TransformerAbstract
             'car' => $trip->car,
             'status' => $trip->status,
             'riders' => Trips::getTripRiders($trip),
+            'attributes' => $trip->attributes,
             'created_by' => $trip->creator,
             'updated_by' => $trip->updater,
             'created_at' => format_date_time($trip->created_at),
