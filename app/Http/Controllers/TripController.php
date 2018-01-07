@@ -33,7 +33,7 @@ class TripController extends Controller
         $trips = fractal($trips, new TripTransformer())->toArray();
         $valid_trips = fractal($valid_trips, new TripTransformer())->toArray();
         $unaccepted_trips = fractal($unaccepted_trips, new TripTransformer())->toArray();
-        return response()->json(apiResponseMessage(trans('trips list'), ['trips' => $valid_trips, 'unaccepted_trips' => $unaccepted_trips]), 200);
+        return response()->json(apiResponseMessage(trans('trips list'), ['trips' => $valid_trips['data'], 'unaccepted_trips' => $unaccepted_trips['data']]), 200);
     }
 
     /**
@@ -68,9 +68,7 @@ class TripController extends Controller
                 }
                 $attributes['car_id'] = $car->id;
             }elseif ($attributes['status'] == 'requested'){
-                $attributes['seats_number'] = null;
                 $attributes['car_id'] = null;
-                $attributes['attributes'] = null;
                 $attributes['driver_id'] = null;
             }else{
                 throw new \Exception('unknown trip status');
@@ -88,7 +86,7 @@ class TripController extends Controller
             ]);
 
             $trip = fractal($trip, new TripTransformer())->toArray();
-            return response()->json(apiResponseMessage(trans('trip created successfully'), ['trip' => $trip]), 200);
+            return response()->json(apiResponseMessage(trans('trip created successfully'), ['trip' => $trip['data']]), 200);
         } catch (\Exception $e) {
             return response()->json(apiResponseMessage(trans('failed to create trip'), ['error' => $e->getMessage()]), 400);
         }
@@ -109,7 +107,7 @@ class TripController extends Controller
                 return response()->json(apiResponseMessage(trans('failed to retrieve a trip'), ['error' => 'not valid trip id']), 400);
             }else{
                 $trip = fractal($trip, new TripTransformer())->toArray();
-                return response()->json(apiResponseMessage(trans('trip retrieved successfully'), ['trip' => $trip]), 200);
+                return response()->json(apiResponseMessage(trans('trip retrieved successfully'), ['trip' => $trip['data']]), 200);
             }
         }catch (\Exception $e){
             return response()->json(apiResponseMessage(trans('failed to retrieve a trip'), ['error' => $e->getMessage()]), $e->getCode());
@@ -161,7 +159,7 @@ class TripController extends Controller
 
             $trip->update($updated_fields);
             $trip = fractal($trip, new TripTransformer())->toArray();
-            return response()->json(apiResponseMessage(trans('trip updated successfully'), ['trip' => $trip]), 200);
+            return response()->json(apiResponseMessage(trans('trip updated successfully'), ['trip' => $trip['data']]), 200);
         } catch (\Exception $e) {
             return response()->json(apiResponseMessage(trans('failed to update trip'), ['error' => $e->getMessage()]), 400);
         }
@@ -246,9 +244,28 @@ class TripController extends Controller
             $today_trips = fractal($today_trips, new TripTransformer())->toArray();
             $future_trips = fractal($future_trips, new TripTransformer())->toArray();
 
-            return response()->json(apiResponseMessage(trans('my trips'), ['past_trips' => $past_trips, 'today_trips' => $today_trips, 'future_trips' => $future_trips]), 200);
+            return response()->json(apiResponseMessage(trans('my trips'), ['past_trips' => $past_trips['data'], 'today_trips' => $today_trips['data'], 'future_trips' => $future_trips['data']]), 200);
         }catch (\Exception $e){
             return response()->json(apiResponseMessage(trans('failed to retrieve my trips'), ['error' => $e->getMessage()]), 400);
         }
     }
+
+    /**
+     * @param TripRequest $tripRequest
+     * @param $trip_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function acceptTrip(TripRequest $tripRequest, $trip_id)
+    {
+        try{
+            $trip = Trip::find($trip_id);
+            $trip->driver_id = \user()->id;
+            $trip->car_id = \user()->car->id;
+            $trip->save();
+            return response()->json(apiResponseMessage(trans('Trip accepted'), []), 200);
+        }catch (\Exception $e){
+            return response()->json(apiResponseMessage(trans('failed to accept the trip'), ['error' => $e->getMessage()]), 400);
+        }
+    }
+
 }
