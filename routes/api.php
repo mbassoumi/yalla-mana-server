@@ -52,7 +52,7 @@ Route::post('get-code', 'Auth\LoginController@apiGetCode');
 /*
  * user routes
  */
-\Route::resource('user','UserController');
+Route::middleware('auth:api')->put('user/{user}','UserController@update');
 
 
 //#####################################   car routes   ##############################################

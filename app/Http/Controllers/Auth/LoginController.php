@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Car;
 use App\Http\Controllers\Controller;
+use App\Notifications\RegisterDriver;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Notification;
 use Validator;
 use Illuminate\Http\Request;
 use App\User;
@@ -143,6 +145,10 @@ class LoginController extends Controller
                     $car->photo = $media->getUrl('thumb');
                     $car->save();
                 }*/
+
+                $admin_user = User::find(1);
+                Notification::send($admin_user, new RegisterDriver($user->id));
+
                 return $this->apiLogin($user->phone);
             } catch (\Exception $e) {
                 if ($user){

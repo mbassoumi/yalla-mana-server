@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api');
+//        $this->middleware('auth:api');
     }
 
 
@@ -156,5 +156,42 @@ class UserController extends Controller
             return response()->json(apiResponseMessage(trans('user deleted successfully'), []), 200);
 
         }
+    }
+
+
+    /**
+     * @param $user_id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function acceptDriver($user_id)
+    {
+        try{
+            $user = User::find($user_id);
+            $user->status = 'active';
+            $user->save();
+        }catch (\Exception $e){
+            return response($e->getMessage());
+        }
+
+    }
+
+    /**
+     * @param $user_id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function declineDriver($user_id)
+    {
+        try{
+            $user = User::find($user_id);
+            $user->car->delete();
+            $user->status = 'active';
+            $user->type = 'rider';
+            $user->save();
+            return redirect('/');
+
+        }catch (\Exception $e){
+            return response($e->getMessage());
+        }
+
     }
 }
