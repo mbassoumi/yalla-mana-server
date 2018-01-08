@@ -61,7 +61,7 @@ class TripPolicy
      */
     public function delete(User $user, Trip $trip)
     {
-        if (($trip->created_by == $user->id or $trip->driver_id == $user->id )and $trip->riders()->count() == 0) {
+        if (($trip->created_by == $user->id or $trip->driver_id == $user->id) and $trip->riders()->count() == 0) {
             return true;
         }
         return false;
@@ -108,6 +108,23 @@ class TripPolicy
         } else {
             return false;
         }
+    }
+
+    /**
+     * @param User $user
+     * @param Trip $trip
+     * @return bool
+     */
+    public function acceptTrip(User $user, Trip $trip)
+    {
+        if ($user->type == 'driver'
+            and $user->status == 'active'
+            and $user->car->seats_number >= $trip->seats_number
+            and $trip->status == 'requested'
+            and $trip->driver_id == null) {
+            return true;
+        }
+        return false;
     }
 
     /**
