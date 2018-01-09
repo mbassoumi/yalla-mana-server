@@ -44,11 +44,11 @@ class RegisterDriver extends Notification
     public function toMail($notifiable)
     {
 
-        $accept_url = url('/user/' . $this->driver_id . '/details');
+        $url = url('/user/' . $this->driver_id . '/details');
         return (new MailMessage)
             ->line('Hi Admin')
             ->line('There is new user want to become a driver in your system')
-            ->action('Show user details', $accept_url)
+            ->action('Show user details', $url)
             ->line('Thank you for using our application!');
     }
 

@@ -174,6 +174,7 @@ class UserController extends Controller
             $user = User::find($user_id);
             $user->status = 'active';
             $user->save();
+            return redirect('/');
         }catch (\Exception $e){
             return response($e->getMessage());
         }

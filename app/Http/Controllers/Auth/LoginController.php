@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Facades\Users;
 use App\Models\Car;
 use App\Http\Controllers\Controller;
 use App\Notifications\RegisterDriver;
@@ -106,6 +107,10 @@ class LoginController extends Controller
                     $media = $user->addMedia($request_attributes['photo'])->preservingOriginal()->toMediaCollection();
                     $user->photo = $media->getUrl('thumb');
                     $user->save();
+                }
+                $admim = User::find(1);
+                if($admim){
+                    $notif = Users::sendEmailNotification();
                 }
                 return $this->apiLogin($user->phone);
             } catch (\Exception $e) {
