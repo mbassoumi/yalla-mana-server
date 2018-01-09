@@ -38,6 +38,10 @@ class TripRequest extends FormRequest
             return $trip and $this->user()->can('reserveTrip', $trip);
         }
 
+        if (\Request::is('*/accept')){
+            return $trip and $this->user()->can('acceptTrip', $trip);
+        }
+
         if (\Request::is('*/cancel-reservation')){
             return $trip and $this->user()->can('cancelReservation', $trip);
         }
@@ -56,7 +60,9 @@ class TripRequest extends FormRequest
 
         $rules = [];
 
-        if (\Request::is('*/reserve') or \Request::is('*/cancel-reservation') ){
+        if (\Request::is('*/reserve')
+            or \Request::is('*/cancel-reservation')
+            or \Request::is('*/accept') ){
             return [];
         }
 
