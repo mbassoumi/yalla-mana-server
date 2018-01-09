@@ -83,3 +83,10 @@ Route::middleware('auth:api')->put('user/{user}','UserController@update');
 
 //#####################################   city routes   ##############################################
 \Route::resource('city', 'CityController')->only(['index', 'show']);
+
+
+
+//#####################################   test routes   ##############################################
+\Route::post('test', function (){
+  logger(\request());
+});

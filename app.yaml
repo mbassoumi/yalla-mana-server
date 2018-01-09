@@ -24,6 +24,15 @@ env_variables:
   DB_PASSWORD: majdbb18
   DB_SOCKET: "/cloudsql/yalla-mana:us-central1:yallamana"
 
+  MAIL_DRIVER: smtp
+  MAIL_HOST: smtp.gmail.com
+  MAIL_PORT: 587
+  MAIL_USERNAME: yallamana.graduation@gmail.com
+  MAIL_FROM_ADDRESS: yallamana.graduation@gmail.com
+  MAIL_FROM_NAME: 'yall amana'
+  MAIL_PASSWORD: majdmaismustafa
+  MAIL_ENCRYPTION: tls
+
 beta_settings:
   cloud_sql_instances: "yalla-mana:us-central1:yallamana"
       # for Cloud SQL, set this value to the Cloud SQL connection name,
