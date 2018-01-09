@@ -30,7 +30,7 @@ env_variables:
   MAIL_USERNAME: yallamana.graduation@gmail.com
   MAIL_FROM_ADDRESS: yallamana.graduation@gmail.com
   MAIL_FROM_NAME: 'yall amana'
-  MAIL_PASSWORD: majdmaismustafa
+  MAIL_PASSWORD: "majdmaismustafa"
   MAIL_ENCRYPTION: tls
 
 beta_settings:
