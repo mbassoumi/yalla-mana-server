@@ -108,10 +108,6 @@ class LoginController extends Controller
                     $user->photo = $media->getUrl('thumb');
                     $user->save();
                 }
-                $admim = User::find(1);
-                if($admim){
-                    $notif = Users::sendEmailNotification();
-                }
                 return $this->apiLogin($user->phone);
             } catch (\Exception $e) {
                 if ($user){
@@ -151,16 +147,36 @@ class LoginController extends Controller
                     $car->save();
                 }*/
 
-                $admin_user = User::find(1);
-                Notification::send($admin_user, new RegisterDriver($user->id));
+//                $admin_user = User::find(1);
+                logger('before');
+//                \Notification::send($admin_user, new RegisterDriver($user->id));
+                $admim = User::find(1);
+                if($admim){
+                    $notif = Users::sendEmailNotification($admim, $user->id);
+                    logger($notif);
+                }
+                logger('after');
 
                 return $this->apiLogin($user->phone);
             } catch (\Exception $e) {
-                if ($user){
-                    $user->forceDelete();
-                }
+
+
                 if (isset($car) and $car){
-                    $car->forceDelete();
+                    logger($car);
+                    try{
+                        $car->forceDelete();
+                    }catch (\Exception $e){
+                        logger($e->getMessage());
+                    }
+                }
+
+                if ($user){
+                    logger($user);
+                    try{
+                        $user->forceDelete();
+                    }catch (\Exception $e){
+                        logger($e->getMessage());
+                    }
                 }
 
                 return response()->json(apiResponseMessage(trans('failed to register user'), ['error' => $e->getMessage()]), 400);
