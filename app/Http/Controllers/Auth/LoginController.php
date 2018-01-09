@@ -160,6 +160,7 @@ class LoginController extends Controller
                 return $this->apiLogin($user->phone);
             } catch (\Exception $e) {
 
+                logger( $e->getMessage());
 
                 if (isset($car) and $car){
                     logger($car);
