@@ -20,6 +20,8 @@ Route::group(['prefix' => 'user/{user}'], function () {
     Route::get('accept-driver', 'UserController@acceptDriver');
     Route::get('decline-driver', 'UserController@declineDriver');
 });
+
+Route::get('user/{user}/details','UserController@userDetails');
 /*
 Auth::routes();
 

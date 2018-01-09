@@ -16,6 +16,11 @@ class UserController extends Controller
 //        $this->middleware('auth:api');
     }
 
+    public function userDetails($user_id)
+    {
+        $user = User::find($user_id);
+        return view('driver_details', compact('user'));
+    }
 
     /**
      * Display a listing of the resource.
