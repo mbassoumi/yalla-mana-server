@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Transformers\SocialMedia\PostTransformer;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -23,7 +24,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return response()->json(apiResponseMessage(trans('posts list'), ['posts' => $posts]), 200);
+        $posts = fractal($posts, new PostTransformer())->toArray();
+        return response()->json(apiResponseMessage(trans('posts list'), ['posts' => $posts['data']]), 200);
 
     }
 
@@ -161,7 +163,8 @@ class PostController extends Controller
     {
         try{
             $posts = Post::where('created_by', '=', user()->id)->get();
-            return response()->json(apiResponseMessage(trans('my posts'), ['posts' => $posts]), 200);
+            $posts = fractal($posts, new PostTransformer())->toArray();
+            return response()->json(apiResponseMessage(trans('my posts'), ['posts' => $posts['data']]), 200);
         }catch (\Exception $e){
             return response()->json(apiResponseMessage(trans('error'), ['error' => $e->getMessage()]), 400);
         }
