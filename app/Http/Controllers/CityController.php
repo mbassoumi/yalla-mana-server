@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Transformers\map\MapCitiesTransformer;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -88,5 +89,20 @@ class CityController extends Controller
     public function destroy(City $city)
     {
         //
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function citiesOnMap()
+    {
+        try{
+            $cities = City::all();
+            $cities = fractal($cities, new MapCitiesTransformer())->toArray();
+            return response()->json(apiResponseMessage(trans('map cities'), ['cities' => $cities['data']]), 200);
+        }catch (\Exception $e){
+            return response()->json(apiResponseMessage(trans('failed to retrieve cities'), ['error' => $e->getMessage()]), 400);
+        }
+
     }
 }

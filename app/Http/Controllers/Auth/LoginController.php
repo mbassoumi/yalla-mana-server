@@ -148,14 +148,12 @@ class LoginController extends Controller
                 }*/
 
 //                $admin_user = User::find(1);
-                logger('before');
 //                \Notification::send($admin_user, new RegisterDriver($user->id));
                 $admim = User::find(1);
                 if($admim){
                     $notif = Users::sendEmailNotification($admim, $user->id);
                     logger($notif);
                 }
-                logger('after');
 
                 return $this->apiLogin($user->phone);
             } catch (\Exception $e) {

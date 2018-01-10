@@ -82,7 +82,10 @@ Route::middleware('auth:api')->put('user/{user}','UserController@update');
 
 
 //#####################################   city routes   ##############################################
+
+\Route::get('map/cities', 'CityController@citiesOnMap');
 \Route::resource('city', 'CityController')->only(['index', 'show']);
+
 
 
 
