@@ -20,7 +20,7 @@ class MapCitiesTransformer extends TransformerAbstract
         $from_cities = array_keys($from_cities);
         return [
             'id' => $city->id,
-            'name' => $city->name['en'],
+            'name' => $city->name,
             'lon' => $city->lon,
             'lat' => $city->lat,
             'from_city' => $from_cities,
