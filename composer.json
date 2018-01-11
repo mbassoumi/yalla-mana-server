@@ -5,8 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.0.0",
-        "ext-gd": "*",
+        "php": ">=7.1.9",
         "barryvdh/laravel-ide-helper": "^2.4",
         "davibennun/laravel-push-notification": "dev-laravel5",
         "fideloper/proxy": "~3.3",

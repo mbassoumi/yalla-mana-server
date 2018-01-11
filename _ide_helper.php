@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.5.28 on 2018-01-08.
+ * Generated for Laravel 5.5.28 on 2018-01-11.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12257,6 +12257,94 @@ namespace Illuminate\Support\Facades {
  
 }
 
+namespace Davibennun\LaravelPushNotification\Facades { 
+
+    class PushNotification {
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function app($appName)
+        {
+            return \Davibennun\LaravelPushNotification\PushNotification::app($appName);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Message()
+        {
+            return \Davibennun\LaravelPushNotification\PushNotification::Message();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Device()
+        {
+            return \Davibennun\LaravelPushNotification\PushNotification::Device();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function DeviceCollection()
+        {
+            return \Davibennun\LaravelPushNotification\PushNotification::DeviceCollection();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function PushManager()
+        {
+            return \Davibennun\LaravelPushNotification\PushNotification::PushManager();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function ApnsAdapter()
+        {
+            return \Davibennun\LaravelPushNotification\PushNotification::ApnsAdapter();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function GcmAdapter()
+        {
+            return \Davibennun\LaravelPushNotification\PushNotification::GcmAdapter();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function Push()
+        {
+            return \Davibennun\LaravelPushNotification\PushNotification::Push();
+        }
+         
+    }
+ 
+}
+
 namespace Intervention\Image\Facades { 
 
     class Image {
@@ -14890,6 +14978,8 @@ namespace  {
     class Validator extends \Illuminate\Support\Facades\Validator {}
 
     class View extends \Illuminate\Support\Facades\View {}
+
+    class PushNotification extends \Davibennun\LaravelPushNotification\Facades\PushNotification {}
 
     class Image extends \Intervention\Image\Facades\Image {}
 
