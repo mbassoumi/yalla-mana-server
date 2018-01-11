@@ -6,9 +6,7 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "ext-GD": "*",
         "barryvdh/laravel-ide-helper": "^2.4",
-        "davibennun/laravel-push-notification": "dev-laravel5",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/passport": "^4.0",
@@ -17,7 +15,8 @@
         "orangehill/iseed": "dev-master",
         "spatie/laravel-fractal": "^5.3",
         "spatie/laravel-medialibrary": "6.0.0",
-        "yajra/laravel-auditable": "^1.1"
+        "yajra/laravel-auditable": "^1.1",
+        "davibennun/laravel-push-notification": "dev-laravel5"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
