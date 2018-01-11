@@ -28,7 +28,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');*/
 
 Route::get('majd', function (){
-   $user = \App\User::find(1);
+    $path = base_path();
+return $path;
+    $user = \App\User::find(1);
    \Illuminate\Support\Facades\Notification::send($user, new \App\Notifications\RegisterDriver($user->id));
 //   $user->notify(new \App\Notifications\RegisterDriver());
 });
