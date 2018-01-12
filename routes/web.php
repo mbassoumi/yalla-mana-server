@@ -31,7 +31,7 @@ Route::get('majd/{var}', function ($var){
     $user = \App\User::find($var);
 
     $media = $user->getFirstMedia('media');
-    dd($media->getUrl());
+//    dd($media->getUrl());
 //    dd(public_path());
 //    foreach ($medias as $media){
 //        logger($media);
