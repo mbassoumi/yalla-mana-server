@@ -63,10 +63,10 @@
 
         ],
         "post-install-cmd": [
-            "chmod -R 755 bootstrap\/cache",
-            "chown -R www-data:root",
-            "php artisan cache:clear",
-            "php artisan passport:keys"
+          "chmod -R 755 bootstrap\/cache",
+          "php artisan cache:clear",
+          "chmod -R 777 root",
+          "php artisan passport:keys"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
