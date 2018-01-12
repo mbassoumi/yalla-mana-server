@@ -64,6 +64,7 @@
         ],
         "post-install-cmd": [
             "chmod -R 755 bootstrap\/cache",
+            "chown -R www-data:root",
             "php artisan cache:clear",
             "php artisan passport:keys"
         ],

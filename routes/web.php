@@ -29,7 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');*/
 
 Route::get('majd/{var}', function ($var){
     $user = \App\User::find($var);
-
+//    dd(public_path());
     $media = $user->getFirstMedia('media');
 //    dd($media->getUrl());
 //    dd(public_path());
