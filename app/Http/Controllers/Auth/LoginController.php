@@ -72,11 +72,11 @@ class LoginController extends Controller
             try {
                 $user->status = 'active';
                 $user->save();
-                if ($request->hasFile('photo')){
+                /*if ($request->hasFile('photo')){
                     logger('888');
                     logger(\request()->file('photo'));
                     $media = $user->addMedia($request->file('photo'))->preservingOriginal()->toMediaCollection('media');;
-                }
+                }*/
                 return $this->apiLogin($user->phone);
             } catch (\Exception $e) {
                 if ($user){
@@ -95,11 +95,11 @@ class LoginController extends Controller
                 ]);
                 $user->status = 'suspended';
                 $user->save();
-                if (isset($request_attributes['photo'])){
+                /*if (isset($request_attributes['photo'])){
                     $media = $user->addMedia($request_attributes['photo'])->preservingOriginal()->toMediaCollection();
                     $user->photo = $media->getUrl('thumb');
                     $user->save();
-                }
+                }*/
                 $car = new Car();
                 $car->user_id = $user->id;
                 $car->car_licence = $request_attributes['car']['car_licence'];
