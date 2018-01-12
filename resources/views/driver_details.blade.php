@@ -44,7 +44,7 @@
         <div class="col-lg-3 col-md-4 col-xs-6">
             <a href="#" onClick="MyWindow=window.open('#','MyWindow',width=600,height=300); return false;" class="d-block mb-4 h-100">
                 Driving Licence
-                <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
+                <img class="img-fluid img-thumbnail" src="{{$media->getUrl('thumb')}}" height="400" width="300" alt="http://placehold.it/400x300">
             </a>
         </div>
 

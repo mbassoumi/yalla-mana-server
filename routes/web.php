@@ -27,10 +27,26 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');*/
 
-Route::get('majd', function (){
-    $path = base_path();
-return $path;
-    $user = \App\User::find(1);
-   \Illuminate\Support\Facades\Notification::send($user, new \App\Notifications\RegisterDriver($user->id));
+Route::get('majd/{var}', function ($var){
+    $user = \App\User::find($var);
+
+    $media = $user->getFirstMedia('media');
+    dd($media->getUrl());
+//    dd(public_path());
+//    foreach ($medias as $media){
+//        logger($media);
+        return view('test', compact( 'media'));
+//    }
+//    foreach ($medias as $media){
+//
+//        <img src="{{$media->getUrl()}}" height="222" width="222">
+//
+//    }
+//    return $media;
+
+//    $path = base_path();
+//return $path;
+//    $user = \App\User::find(1);
+//   \Illuminate\Support\Facades\Notification::send($user, new \App\Notifications\RegisterDriver($user->id));
 //   $user->notify(new \App\Notifications\RegisterDriver());
 });

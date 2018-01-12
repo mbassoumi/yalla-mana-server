@@ -46,41 +46,10 @@ class LoginController extends Controller
     }
 
     /**
-     * @param string $phone
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function apiLogin($phone = 'url')
-    {
-        if ($phone == 'url'){
-            $this->validate(\request(), [
-                'phone' => 'required'
-            ]);
-            $phone = \request()->get('phone');
-        }
-        if(!$phone){
-            return response()->json(apiResponseMessage(trans('wrong request parameter'), ['error' => 'you send phone number as [ '. implode(" , ", \request()->keys()) .' ]' ]), 400);
-        }
-        $new_user = false;
-        $user = User::where('phone',$phone)->first();
-        if(!$user) {
-            $new_user = true;
-            return response()->json(apiResponseMessage(trans('unregistered user'), ['new_user' => $new_user]), 200);
-        }
-        if($user->status == 'suspended'){
-            return response()->json(apiResponseMessage(trans('cant login to system'), ['user' => $user, 'error' => 'suspended user']), 403);
-        }
-        \DB::table('oauth_access_tokens')->where('user_id','=', $user->id)->update(['revoked' => 1]);
-        $auth_user = \Auth::loginUsingId($user->id);
-        $token = $auth_user->createToken(config('app.name'))->accessToken;
-        return response()->json(apiResponseMessage(trans('Login Successfully'), ['user' => $auth_user, 'new_user' => $new_user, 'token' => $token]), 200);
-
-    }
-
-
-    /**
+     * @param Request $request
      * @return array|\Illuminate\Http\JsonResponse
      */
-    public function apiSignUp()
+    public function apiSignUp(Request $request)
     {
         $request_attributes = \request()->all();
 
@@ -103,10 +72,10 @@ class LoginController extends Controller
             try {
                 $user->status = 'active';
                 $user->save();
-                if (isset($request_attributes['photo'])){
-                    $media = $user->addMedia($request_attributes['photo'])->preservingOriginal()->toMediaCollection();
-                    $user->photo = $media->getUrl('thumb');
-                    $user->save();
+                if ($request->hasFile('photo')){
+                    logger('888');
+                    logger(\request()->file('photo'));
+                    $media = $user->addMedia($request->file('photo'))->preservingOriginal()->toMediaCollection('media');;
                 }
                 return $this->apiLogin($user->phone);
             } catch (\Exception $e) {
@@ -182,6 +151,38 @@ class LoginController extends Controller
             }
         }
         return $request_attributes;
+    }
+
+
+    /**
+     * @param string $phone
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function apiLogin($phone = 'url')
+    {
+        if ($phone == 'url'){
+            $this->validate(\request(), [
+                'phone' => 'required'
+            ]);
+            $phone = \request()->get('phone');
+        }
+        if(!$phone){
+            return response()->json(apiResponseMessage(trans('wrong request parameter'), ['error' => 'you send phone number as [ '. implode(" , ", \request()->keys()) .' ]' ]), 400);
+        }
+        $new_user = false;
+        $user = User::where('phone',$phone)->first();
+        if(!$user) {
+            $new_user = true;
+            return response()->json(apiResponseMessage(trans('unregistered user'), ['new_user' => $new_user]), 200);
+        }
+        if($user->status == 'suspended'){
+            return response()->json(apiResponseMessage(trans('cant login to system'), ['user' => $user, 'error' => 'suspended user']), 403);
+        }
+        \DB::table('oauth_access_tokens')->where('user_id','=', $user->id)->update(['revoked' => 1]);
+        $auth_user = \Auth::loginUsingId($user->id);
+        $token = $auth_user->createToken(config('app.name'))->accessToken;
+        return response()->json(apiResponseMessage(trans('Login Successfully'), ['user' => $auth_user, 'new_user' => $new_user, 'token' => $token]), 200);
+
     }
 
    /* public function apiGetCode()
